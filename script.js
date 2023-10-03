@@ -1,3 +1,8 @@
+let games = 0;
+let wins = 0;
+let losses = 0;
+let draws = 0;
+
 function getComputerChoice() {
   const randomNum = Math.floor(Math.random() * 3);
 
@@ -12,22 +17,56 @@ function getComputerChoice() {
 }
 
 function playRound(playerSelection, computerSelection) {
-  if (playerSelection.toLowerCase() == computerSelection.toLowerCase()) {
+  player = playerSelection.toLowerCase();
+  computer = computerSelection.toLowerCase();
+  playerString = player.charAt(0).toUpperCase() + player.slice(1);
+  computerString = computer.charAt(0).toUpperCase() + computer.slice(1);
+
+  if (player == computer) {
+    draws++;
     return "Draw!";
   } else if (
-    (playerSelection.toLowerCase == "paper" &&
-      computerSelection.toLowerCase == "rock") ||
-    (playerSelection.toLowerCase == "rock" &&
-      computerSelection.toLowerCase == "scissors") ||
-    (playerSelection.toLowerCase == "scissors" &&
-      computerSelection.toLowerCase == "paper")
+    (player == "paper" && computer == "rock") ||
+    (player == "rock" && computer == "scissors") ||
+    (player == "scissors" && computer == "paper")
   ) {
-    return "You Win! " + playerSelection + " beats " + computerSelection;
+    wins++;
+    return "You Win! " + playerString + " beats " + computerString;
   } else {
-    return "You Lose! " + computerSelection + " beats " + playerSelection;
+    losses++;
+    return "You Lose! " + computerString + " beats " + playerString;
   }
 }
 
-const playerSelection = "rock";
-const computerSelection = getComputerChoice();
-console.log(playRound(playerSelection, computerSelection));
+function game() {
+  let keepGoing = true;
+
+  while (keepGoing) {
+    if (games == 5) {
+      keepGoing = false;
+    } else {
+      let playerInput = prompt("Choose rock, paper, or scissors");
+      if (
+        playerInput.toLowerCase() != "rock" &&
+        playerInput.toLowerCase() != "paper" &&
+        playerInput.toLowerCase() != "scissors"
+      ) {
+        alert("Please enter a valid move");
+      } else {
+        console.log(playRound(playerInput, getComputerChoice()));
+        games++;
+        console.log(
+          "You have " +
+            wins +
+            " wins, " +
+            losses +
+            " losses, and " +
+            draws +
+            " draws!"
+        );
+      }
+    }
+  }
+}
+
+game();
