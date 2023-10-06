@@ -1,10 +1,19 @@
 .container,
 .header,
+.instructions,
 .resultText {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 15px;
+}
+
+.instructions {
+  margin-bottom: 20px;
+}
+
+.resultText {
+  margin-top: 20px;
 }
 
 button {

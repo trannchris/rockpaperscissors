@@ -3,68 +3,49 @@ let wins = 0;
 let losses = 0;
 let draws = 0;
 
+const buttons = document.querySelectorAll("button");
+
+buttons.forEach((button) => {
+  button.addEventListener("click", () => {
+    playRound(button.id, getComputerChoice());
+  });
+});
+
 function getComputerChoice() {
   const randomNum = Math.floor(Math.random() * 3);
 
   switch (randomNum) {
     case 0:
-      return "Rock";
+      return "rock";
     case 1:
-      return "Paper";
+      return "paper";
     case 2:
-      return "Scissors";
+      return "scissors";
   }
 }
 
 function playRound(playerSelection, computerSelection) {
-  player = playerSelection.toLowerCase();
-  computer = computerSelection.toLowerCase();
-  playerString = player.charAt(0).toUpperCase() + player.slice(1);
-  computerString = computer.charAt(0).toUpperCase() + computer.slice(1);
+  playerString =
+    playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1);
+  computerString =
+    computerSelection.charAt(0).toUpperCase() + computerSelection.slice(1);
 
-  if (player == computer) {
+  resultText = document.querySelector(".resultText");
+
+  if (playerSelection == computerSelection) {
     draws++;
-    return "Draw!";
+    resultText.textContent = "Draw!";
   } else if (
-    (player == "paper" && computer == "rock") ||
-    (player == "rock" && computer == "scissors") ||
-    (player == "scissors" && computer == "paper")
+    (playerSelection == "paper" && computerSelection == "rock") ||
+    (playerSelection == "rock" && computerSelection == "scissors") ||
+    (playerSelection == "scissors" && computerSelection == "paper")
   ) {
     wins++;
-    return "You Win! " + playerString + " beats " + computerString;
+    resultText.textContent =
+      "You Win! " + playerString + " beats " + computerString;
   } else {
     losses++;
-    return "You Lose! " + computerString + " beats " + playerString;
-  }
-}
-
-function game() {
-  let keepGoing = true;
-
-  while (keepGoing) {
-    if (games == 5) {
-      keepGoing = false;
-    } else {
-      let playerInput = prompt("Choose rock, paper, or scissors");
-      if (
-        playerInput.toLowerCase() != "rock" &&
-        playerInput.toLowerCase() != "paper" &&
-        playerInput.toLowerCase() != "scissors"
-      ) {
-        alert("Please enter a valid move");
-      } else {
-        console.log(playRound(playerInput, getComputerChoice()));
-        games++;
-        console.log(
-          "You have " +
-            wins +
-            " wins, " +
-            losses +
-            " losses, and " +
-            draws +
-            " draws!"
-        );
-      }
-    }
+    resultText.textContent =
+      "You Lose! " + computerString + " beats " + playerString;
   }
 }
