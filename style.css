@@ -16,7 +16,9 @@
   margin-top: 20px;
 }
 
-button {
+#rock,
+#paper,
+#scissors {
   height: 100px;
   width: 100px;
 }
